@@ -2,11 +2,24 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import "variables";
+//@import "variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+//@import "~bootstrap/scss/bootstrap";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button {
+    @apply .bg-blue .text-white .no-underline .rounded-lg .text-sm .py-2 .px-5;
+    box-shadow: 0 2px 7px #b0eaff;
+}
+
+.border-heading {
+    border-left: solid 4px #8ae2fe;
+}
+
+.card {
+    @apply .bg-white .p-5 .rounded-lg .shadow;
+}
