@@ -28,7 +28,6 @@ class ManageProjectsTest extends TestCase
         $this->get($project->path())->assertRedirect('login');
         //guest cannot create a project
         $this->post('/projects', $project->toArray())->assertRedirect('login');
-
     }
 
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectsController;
-
+use App\Http\Controllers\ProjectTasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@ use App\Http\Controllers\ProjectsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -28,8 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/projects/{project}', [ProjectsController::class, 'show']);
 
     Route::post('/projects', [ProjectsController::class, 'store']);
-});
 
+    Route::post('/projects/{project}/tasks', [ProjectTasksController::class, 'store']);
+});
 
 
 Auth::routes();
