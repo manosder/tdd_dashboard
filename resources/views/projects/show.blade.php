@@ -27,7 +27,8 @@
 
                                 <div class="flex">
                                     <input type="text" name="body" id="" value="{{ $task->body }}"
-                                        class="w-full {{ $task->completed ? 'text-grey' : '' }}">
+                                        class="w-full {{ $task->completed ? 'text-grey' : '' }}"
+                                        style="border-style: none;">
                                     <input type="checkbox" name="completed" id="" onchange="this.form.submit()"
                                         {{ $task->completed ? 'checked' : '' }}>
                                 </div>
@@ -39,16 +40,25 @@
                     <div class="card mb-3">
                         <form action="{{ $project->path() . '/tasks' }}" method="post">
                             @csrf
-                            <input type="text" name="body" placeholder="Add a task..." class="w-full">
+                            <input type="text" name="body" placeholder="Add a task..." class="w-full"
+                                style="border-style: none;">
                         </form>
                     </div>
                 </div>
 
-                <div class="">
+                <div class="w-5/6">
                     <h2 class="text-lg text-grey font-normal mb-3">General Notes</h2>
                     {{-- General Notes--}}
-                    <textarea class="card w-5/6"
-                        style="min-height: 200px">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</textarea>
+
+                    <form action="{{ $project->path() }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <textarea name="notes" class="card w-full mb-4" style="min-height: 200px;border-style: none;"
+                            placeholder="Anything special that you want to make a note of?">{{ $project->notes }}</textarea>
+
+                        <button class="button" type="submit">Save</button>
+                    </form>
+
                 </div>
 
             </div>
