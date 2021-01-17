@@ -34,7 +34,7 @@ class ProjectTest extends TestCase
 
         $task = $project->addTask('Test task');
 
-        $this->assertCount(1, $project->tasks());
+        $this->assertCount(1, $project->tasks);
         $this->assertTrue($project->tasks->contains($task));
     }
 }
