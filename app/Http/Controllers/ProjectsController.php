@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -18,9 +19,7 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        if (auth()->user()->isNot($project->owner)) {
-            abort(403);
-        }
+        $this->authorize('update', $project);
 
         //redirect
         return view('projects.show', compact('project'));
@@ -32,7 +31,9 @@ class ProjectsController extends Controller
         $attributes = request()->validate([
             'title' => 'required',
             'description' => 'required',
+            'notes' => 'min:3'
         ]);
+
 
         //persist
         $project = auth()->user()->projects()->create($attributes);
@@ -44,5 +45,16 @@ class ProjectsController extends Controller
     public function create()
     {
         return view('projects.create');
+    }
+
+    public function update(Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->update([
+            'notes' => request('notes')
+        ]);
+
+        return redirect($project->path());
     }
 }
